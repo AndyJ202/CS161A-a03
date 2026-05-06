@@ -1,17 +1,25 @@
 /******************************************************************************
 # Author:           Andy Joy
 # Assignment:       Assignment 3
-# Date:             04/12/2026
-# Description:      Calculator to find the fare for the Washington state ferries.
-#                   
-# Input:            Employee ID number (int), hours worked (int), hourly rate
-#                   (int), and federal withholding rate (int).
-# Output:           Gross pay, federal tax withholdin, and net pay.
-# Sources:          N/A
+# Date:             05/05/2026
+# Description:      Calculator to find the fare for the Washington state
+#                   ferries.
+# Input:            Choice (char), numAdults (int), numSeniors (int),
+#                   numYouths (int), and numBikes (int).
+# Output:           Total fare (double) and difference for a free ticket on
+#                   next trip (double).
+# Sources:          Zybooks, 2.12 Output formatting.
 #******************************************************************************/
 #include <iostream>
 #include <iomanip>
 using namespace std;
+
+//constants declared
+const double VEHICLE_FARE = 57.90;
+const double ADULT_FARE = 14.95;
+const double SENIOR_FARE = 7.40;
+const double YOUTH_FARE = 5.55; 
+const double BIKE_SURCHARGE = 4.00;
 
 //main function
 int main() {
@@ -20,12 +28,14 @@ int main() {
   char choice = ' ';
   int numAdults = 0;
   int numSeniors = 0.0;
-  int num
+  int numYouths = 0.0;
+  int numBikes = 0.0;
+  double totalFare = 0.0;
 
-  //Welcome Message
+  //welcome message
   cout << "Welcome to the Washington State Ferries Fare Calculator!" << endl;
 
-  //Chart
+  //chart
   cout << "\n" << setw(10) << left  << "Fare Description";
   cout << setw(51) << right << "Ticket $" << endl;
   
@@ -45,57 +55,86 @@ int main() {
   cout << setw(10) << left  << "Bicycle Surcharge (included with Vehicle)";
   cout << setw(24) << right << "$4.00" << endl;
 
+  //user input, output, and calculations
+  cout << "\nAre you riding a vehicle on the Ferry (Y/N): ";
+  cin >> choice;
 
-  //user input
-
-  cout << "Are you riding a vehicle on the Ferry (Y/N): "
-
-  if (choice != 'Y' && choice != 'N') {
+  //check for valid input for vehicle choice.
+  if (choice != 'Y' && choice != 'y' && choice != 'N' && choice != 'n') {
     cout << "Error!! Invalid answer!! Please try again later!!!" << endl;
   }
 
+  //yes vehicle.
   else {
-    if (choice == 'Y')
-    {
-      cout << "How many adults? ";
+    if (choice == 'Y' || choice == 'y') {
+      cout << "\nHow many adults? ";
       cin >> numAdults;
       cout << "How many seniors? ";
       cin >> numSeniors;
       cout << "How many youths? ";
       cin >> numYouths;
+
+      if (numAdults + numSeniors + numYouths <= 0) {
+        cout << "Error!! Invalid answer!! Please try again later!!!" << endl;
+      }
+
+      if (numAdults + numSeniors + numYouths > 20) {
+        cout << "\nUh oh!! Too many people in your group. Split into 2 groups and try again!" << endl;
+      }
+
+      else {
+        totalFare = (numAdults * ADULT_FARE) + (numSeniors * SENIOR_FARE) + (numYouths * YOUTH_FARE) + VEHICLE_FARE;
+
+        if (totalFare >= 100.00) {
+          cout << fixed << setprecision(2) << showpoint << "\nYour total charge is $" << totalFare << endl;
+          cout << fixed << setprecision(2) << showpoint << "\nYou are eligible for a free adult ticket for the next trip!!" << endl;
+        }
+        else {
+        cout << fixed << setprecision(2) << showpoint << "\nYour total charge is $" << totalFare << endl;
+        cout << fixed << setprecision(2) << showpoint << "\nIf you spend $" << (100.00 - totalFare) << " more, you are eligible for a free adult ticket for the next trip." << endl;
+        }
+      }
     } 
 
-    else if (choice == 'N')
-    {
-      cout << "Enter the number of bonds: ";
-      cin >> numShare;
-      cout << "Enter the price of each bond: $";
-      cin >> price;
-      commPercent = BD_COMM;
+    //no vehicle.
+    if (choice == 'N' || choice == 'n') {
+      cout << "\nHow many adults? ";
+      cin >> numAdults;
+      cout << "How many seniors? ";
+      cin >> numSeniors;
+      cout << "How many youths? ";
+      cin >> numYouths;
+      cout << "How many bikes? ";
+      cin >> numBikes;
+
+      if (numBikes < 0) {
+        cout << "Error!! Invalid answer!! Please try again later!!!" << endl;
+      }
+
+      if (numAdults + numSeniors + numYouths <= 0) {
+        cout << "Error!! Invalid answer!! Please try again later!!!" << endl;
+      }
+      
+      if (numAdults + numSeniors + numYouths > 20) {
+        cout << "\nUh oh!! Too many people in your group. Split into 2 groups and try again!" << endl;
+      }
+
+      else {
+        totalFare = (numAdults * ADULT_FARE) + (numSeniors * SENIOR_FARE) + (numYouths * YOUTH_FARE) + (numBikes * BIKE_SURCHARGE);
+
+        if (totalFare >= 100.00) {
+          cout << fixed << setprecision(2) << showpoint << "\nYour total charge is $" << totalFare << endl;
+          cout << fixed << setprecision(2) << showpoint << "\nYou are eligible for a free adult ticket for the next trip!!" << endl;
+        }
+        else {
+        cout << fixed << setprecision(2) << showpoint << "\nYour total charge is $" << totalFare << endl;
+        cout << fixed << setprecision(2) << showpoint << "\nIf you spend $" << (100.00 - totalFare) << " more, you are eligible for a free adult ticket for the next trip." << endl;
+        }
+      }
     } 
+   } 
 
-  /*cout << "Enter your employee ID number (numbers only): ";
-  cin >> employeeIDNumber;
-  cout << "Enter number of hours worked (whole numbers): ";
-  cin >> hoursWorked;
-  cout << "Enter the hourly rate: $";
-  cin >> hourlyRate;
-  cout << "Enter the federal withholding rate: ";
-  cin >> federalWithholdingRate;
-  cout << endl;
-  
-  //calculations
-  grossPay = hoursWorked * hourlyRate;
-  federalTaxWithholding = grossPay * (federalWithholdingRate / 100.0);
-  netPay = grossPay - federalTaxWithholding;
-
-  //output to the user
-  cout << "Your Payroll Summary:" << endl;
-  cout << "Total Gross Pay: $" << grossPay << endl;
-  cout << "Federal Tax Withholding: $" << federalTaxWithholding << endl;
-  cout << "Net Pay: $" << netPay << endl;
-  cout << endl;
-  cout << "Thank you for using my Weekly Payroll program!!";*/
+  cout << "\nThank you for using Washington State Ferries Fare Calculator!" << endl;
 
   return 0;
 }
