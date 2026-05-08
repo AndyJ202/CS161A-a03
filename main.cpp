@@ -35,7 +35,7 @@ int main() {
   //welcome message
   cout << "Welcome to the Washington State Ferries Fare Calculator!" << endl;
 
-  //chart
+  //print chart
   cout << "\n" << setw(10) << left  << "Fare Description";
   cout << setw(51) << right << "Ticket $" << endl;
   
