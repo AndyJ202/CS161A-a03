@@ -59,100 +59,98 @@ int main() {
   cout << "\nAre you riding a vehicle on the Ferry (Y/N): ";
   cin >> choice;
 
-  //check for valid input for vehicle choice.
+  //check for valid input for vehicle choice
   if (choice != 'Y' && choice != 'y' && choice != 'N' && choice != 'n') {
     cout << "\nError!! Invalid answer!! Please try again later!!!" << endl;
   }
 
-  //yes vehicle.
-  else {
-    if (choice == 'Y' || choice == 'y') {
-      cout << "\nHow many adults? ";
-      cin >> numAdults;
-      if (numAdults < 0) {
+  //yes vechicle
+  else if (choice == 'Y' || choice == 'y') {
+    cout << "\nHow many adults? ";
+    cin >> numAdults;
+    if (numAdults < 0) {
+      cout << "\nError!! Invalid answer!! Please try again later!!!" << endl;
+    }
+    else {
+      cout << "How many seniors? ";
+      cin >> numSeniors;
+      if (numSeniors < 0) {
         cout << "\nError!! Invalid answer!! Please try again later!!!" << endl;
       }
       else {
-        cout << "How many seniors? ";
-        cin >> numSeniors;
-          if (numSeniors < 0) {
-            cout << "\nError!! Invalid answer!! Please try again later!!!" << endl;
+        cout << "How many youths? ";
+        cin >> numYouths;
+        if (numYouths < 0) {
+          cout << "\nError!! Invalid answer!! Please try again later!!!" << endl;
+        }
+        else if (numAdults + numSeniors + numYouths <= 0) {
+          cout << "\nError!! Invalid answer!! Please try again later!!!" << endl;
+        }
+        else if (numAdults + numSeniors + numYouths > 20) {
+          cout << "\nUh oh!! Too many people in your group. Split into 2 groups and try again!" << endl;
+        }
+        else {
+          totalFare = (numAdults * ADULT_FARE) + (numSeniors * SENIOR_FARE) + (numYouths * YOUTH_FARE) + VEHICLE_FARE;
+          if (totalFare >= 100.00) {
+            cout << fixed << setprecision(2) << showpoint << "\nYour total charge is $" << totalFare << endl;
+            cout << fixed << setprecision(2) << showpoint << "\nYou are eligible for a free adult ticket for the next trip!!" << endl;
           }
           else {
-            cout << "How many youths? ";
-            cin >> numYouths;
-              if (numYouths < 0) {
-               cout << "\nError!! Invalid answer!! Please try again later!!!" << endl;
-              } 
-              else if (numAdults + numSeniors + numYouths <= 0) {
-                cout << "\nError!! Invalid answer!! Please try again later!!!" << endl;
-              }
-              else if (numAdults + numSeniors + numYouths > 20) {
-                cout << "\nUh oh!! Too many people in your group. Split into 2 groups and try again!" << endl;
-              }
-              else if (numAdults + numSeniors + numYouths <= 20) {
-                totalFare = (numAdults * ADULT_FARE) + (numSeniors * SENIOR_FARE) + (numYouths * YOUTH_FARE) + VEHICLE_FARE;
-                if (totalFare >= 100.00) {
-                  cout << fixed << setprecision(2) << showpoint << "\nYour total charge is $" << totalFare << endl;
-                  cout << fixed << setprecision(2) << showpoint << "\nYou are eligible for a free adult ticket for the next trip!!" << endl;
-                }
-                else {
-                  cout << fixed << setprecision(2) << showpoint << "\nYour total charge is $" << totalFare << endl;
-                  cout << fixed << setprecision(2) << showpoint << "\nIf you spend $" << (100.00 - totalFare) << " more, you are eligible for a free adult ticket for the next trip." << endl;
-                }
-              }
-          }  
+            cout << fixed << setprecision(2) << showpoint << "\nYour total charge is $" << totalFare << endl;
+            cout << fixed << setprecision(2) << showpoint << "\nIf you spend $" << (100.00 - totalFare) << " more, you are eligible for a free adult ticket for the next trip." << endl;
+          }
         }
       }
-    }   
-  }  
+    }
+  }
 
-    //no vehicle.
-    else if (choice == 'N' || choice == 'n') {
-      cout << "\nHow many adults? ";
-      cin >> numAdults;
-      if (numAdults < 0) {
+  //no vehicle
+  else if (choice == 'N' || choice == 'n') {
+    cout << "\nHow many adults? ";
+    cin >> numAdults;
+    if (numAdults < 0) {
+      cout << "\nError!! Invalid answer!! Please try again later!!!" << endl;
+    }
+    else {
+      cout << "How many seniors? ";
+      cin >> numSeniors;
+      if (numSeniors < 0) {
         cout << "\nError!! Invalid answer!! Please try again later!!!" << endl;
       }
       else {
-        cout << "How many seniors? ";
-        cin >> numSeniors;
-          if (numSeniors < 0) {
+        cout << "How many youths? ";
+        cin >> numYouths;
+        if (numYouths < 0) {
+          cout << "\nError!! Invalid answer!! Please try again later!!!" << endl;
+        }
+        else {
+          cout << "How many bikes? ";
+          cin >> numBikes;
+          if (numBikes < 0) {
             cout << "\nError!! Invalid answer!! Please try again later!!!" << endl;
           }
-          else {
-            cout << "How many youths? ";
-            cin >> numYouths;
-              if (numYouths < 0) {
-                cout << "\nError!! Invalid answer!! Please try again later!!!" << endl;
-              }
-              else {
-                cout << "How many bikes? ";
-                cin >> numBikes;
-                 if (numBikes < 0) {
-                  cout << "\nError!! Invalid answer!! Please try again later!!!" << endl;
-                  } 
-                  else if (numAdults + numSeniors + numYouths <= 0) {
-                    cout << "\nError!! Invalid answer!! Please try again later!!!" << endl;
-                  }
-                  else if (numAdults + numSeniors + numYouths > 20) {
-                    cout << "\nUh oh!! Too many people in your group. Split into 2 groups and try again!" << endl;
-                  }
-                  else if (numAdults + numSeniors + numYouths <= 20) {
-                    totalFare = (numAdults * ADULT_FARE) + (numSeniors * SENIOR_FARE) + (numYouths * YOUTH_FARE) + (numBikes * BIKE_SURCHARGE);
-                    if (totalFare >= 100.00) {
-                      cout << fixed << setprecision(2) << showpoint << "\nYour total charge is $" << totalFare << endl;
-                      cout << fixed << setprecision(2) << showpoint << "\nYou are eligible for a free adult ticket for the next trip!!" << endl;
-                    }
-                    else {
-                      cout << fixed << setprecision(2) << showpoint << "\nYour total charge is $" << totalFare << endl;
-                      cout << fixed << setprecision(2) << showpoint << "\nIf you spend $" << (100.00 - totalFare) << " more, you are eligible for a free adult ticket for the next trip." << endl;
-                    }
-                  }
-              }
+          else if (numAdults + numSeniors + numYouths <= 0) {
+            cout << "\nError!! Invalid answer!! Please try again later!!!" << endl;
           }
+          else if (numAdults + numSeniors + numYouths > 20) {
+            cout << "\nUh oh!! Too many people in your group. Split into 2 groups and try again!" << endl;
+          }
+          else {
+            totalFare = (numAdults * ADULT_FARE) + (numSeniors * SENIOR_FARE) + (numYouths * YOUTH_FARE) + (numBikes * BIKE_SURCHARGE);
+            if (totalFare >= 100.00) {
+              cout << fixed << setprecision(2) << showpoint << "\nYour total charge is $" << totalFare << endl;
+              cout << fixed << setprecision(2) << showpoint << "\nYou are eligible for a free adult ticket for the next trip!!" << endl;
+            }
+            else {
+              cout << fixed << setprecision(2) << showpoint << "\nYour total charge is $" << totalFare << endl;
+              cout << fixed << setprecision(2) << showpoint << "\nIf you spend $" << (100.00 - totalFare) << " more, you are eligible for a free adult ticket for the next trip." << endl;
+            }
+          }
+        }
       }
     }
+  }
+
   cout << "\nThank you for using Washington State Ferries Fare Calculator!" << endl;
 
   return 0;
